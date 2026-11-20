@@ -5,6 +5,7 @@ import com.duoc.aurashop.service.ProductoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,18 +34,21 @@ public class ProductoController {
     }
 
     @Operation(summary = "Crear un producto")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','EDITOR_PRODUCTOS')")
     @PostMapping
     public Producto create(@Valid @RequestBody Producto producto) {
         return service.create(producto);
     }
 
     @Operation(summary = "Actualizar un producto")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','EDITOR_PRODUCTOS')")
     @PutMapping("/{id}")
     public Producto update(@PathVariable Long id, @Valid @RequestBody Producto producto) {
         return service.update(id, producto);
     }
 
     @Operation(summary = "Eliminar un producto")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','EDITOR_PRODUCTOS')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
