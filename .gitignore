@@ -32,6 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
+data/
+*.mv.db
+*.trace.db
 *.pem
 .env
-application-local.properties
